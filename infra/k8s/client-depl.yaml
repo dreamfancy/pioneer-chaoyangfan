@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pioneer-client-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pioneer-client
+  template:
+    metadata:
+      labels:
+        app: pioneer-client
+    spec:
+      containers:
+      - name: pioneer-client
+        image: dreamfancy1987/pioneer-client
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: pioneer-client-srv
+spec:
+  selector:
+    app: pioneer-client
+  type: ClusterIP
+  ports:
+    - name: pioneer-client
+      protocol: TCP
+      port: 3000
+      targetPort: 3000  

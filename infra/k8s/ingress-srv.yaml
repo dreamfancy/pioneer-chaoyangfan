@@ -1,0 +1,26 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-srv
+  annotations: 
+    kubernetes.io/ingress.class: nginx 
+    nginx.ingress.kubernetes.io/use-regex: 'true'
+spec:
+  rules:
+  - host: pioneer.com
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/query/?(.*)"
+        backend:
+          service:
+            name: pioneer-query-srv
+            port: 
+              number: 4000           
+      - pathType: Prefix
+        path: "/?(.*)"
+        backend:
+          service:
+            name: pioneer-client-srv
+            port: 
+              number: 3000
