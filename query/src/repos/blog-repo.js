@@ -16,18 +16,18 @@ class BlogRepo {
     return toCamelCase(rows)[0]; //if no users, it is undefined
   }
 
-  static async insert(username, title, contents) {
+  static async insert(username, title, description, contents) {
     const { rows } = await pool.query(
-      `INSERT INTO blogs(username, title, contents) VALUES ($1, $2, $3) RETURNING * ;`,
-      [username, title, contents]
+      `INSERT INTO blogs(username, title, description, contents) VALUES ($1, $2, $3, $4) RETURNING * ;`,
+      [username, title, description, contents]
     );
     return toCamelCase(rows)[0];
   }
 
-  static async update(id, username, title, contents) {
+  static async update(id, username, title, description, contents) {
     const { rows } = await pool.query(
-      `UPDATE blogs SET username = $1, title = $2 WHERE id = $3 RETURNING * ;`,
-      [username, title, contents]
+      `UPDATE blogs SET username = $2, title = $3, description = $4, WHERE id = $1 RETURNING * ;`,
+      [id, username, title, description, contents]
     );
     return toCamelCase(rows)[0];
   }

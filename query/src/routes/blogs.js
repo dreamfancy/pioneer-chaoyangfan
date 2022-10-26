@@ -12,6 +12,7 @@ router.get('/query/blog/:id', async (req, res) => {
   const { id } = req.params;
   const blog = await BlogRepo.findById(id);
   if (blog) {
+    console.log(blog);
     res.send(blog);
   } else {
     res.sendStatus(404);
@@ -20,15 +21,21 @@ router.get('/query/blog/:id', async (req, res) => {
 
 router.post('/query/blog', async (req, res) => {
   //console.log(req.body);
-  const { username, title, contents } = req.body;
-  const blog = await BlogRepo.insert(username, title, contents);
+  const { username, title, description, contents } = req.body;
+  const blog = await BlogRepo.insert(username, title, description, contents);
   res.send(blog);
 });
 
 router.put('/query/blog/:id', async (req, res) => {
   const { id } = req.params;
-  const { username, title, contents } = req.body;
-  const blog = await BlogRepo.update(id, username, title, contents);
+  const { username, title, description, contents } = req.body;
+  const blog = await BlogRepo.update(
+    id,
+    username,
+    title,
+    description,
+    contents
+  );
   if (blog) {
     res.send(blog);
   } else {
