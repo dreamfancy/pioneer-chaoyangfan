@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pioneer-auth-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pioneer-auth
+  template:
+    metadata:
+      labels:
+        app: pioneer-auth
+    spec:
+      containers:
+      - name: pioneer-blog
+        image: dreamfancy1987/pioneer-auth
+        env: 
+          - name: JWT_KEY
+            valueFrom:
+              secretKeyRef:
+                name: jwt-secret
+                key: JWT_KEY
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: pioneer-auth-srv
+spec:
+  selector:
+    app: pioneer-auth
+  type: ClusterIP
+  ports:
+    - name: pioneer-auth
+      protocol: TCP
+      port: 4000
+      targetPort: 4000

@@ -16,8 +16,8 @@ build:
         manual:
           - src: 'src/**/*.js'
             dest: .
-    - image: dreamfancy1987/pioneer-query
-      context: query
+    - image: dreamfancy1987/pioneer-blog
+      context: blog
       docker:
         dockerfile: Dockerfile
       sync: 

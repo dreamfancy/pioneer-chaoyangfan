@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pioneer-blog-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pioneer-blog
+  template:
+    metadata:
+      labels:
+        app: pioneer-blog
+    spec:
+      containers:
+      - name: pioneer-blog
+        image: dreamfancy1987/pioneer-blog
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: pioneer-blog-srv
+spec:
+  selector:
+    app: pioneer-blog
+  type: ClusterIP
+  ports:
+    - name: pioneer-blog
+      protocol: TCP
+      port: 4000
+      targetPort: 4000

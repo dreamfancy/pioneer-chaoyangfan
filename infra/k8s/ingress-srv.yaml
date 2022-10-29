@@ -11,10 +11,10 @@ spec:
     http:
       paths:
       - pathType: Prefix
-        path: "/query/?(.*)"
+        path: "/blog/?(.*)"
         backend:
           service:
-            name: pioneer-query-srv
+            name: pioneer-blog-srv
             port: 
               number: 4000           
       - pathType: Prefix
